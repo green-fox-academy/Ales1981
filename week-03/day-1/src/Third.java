@@ -5,6 +5,6 @@ public class Third {
         // - Print the third element of `numbers`
 
         int[] numbers = { 4, 5, 6, 7 };
-        System.out.print(numbers[3]);
+        System.out.print(numbers[2]);
     }
 }
