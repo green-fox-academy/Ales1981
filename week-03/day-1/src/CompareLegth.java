@@ -12,10 +12,12 @@ public class CompareLegth {
 
         if ( firstArrayOfNumbers.length > secondArrayOfNumbers.length){
             System.out.println("firstArrayOfNumbers is longer then secondArrayOfNumbers");
+
         }
         else {
             System.out.println("secondArrayOfNumbers is longer then fistArrayOfNumbers");
         }
-
+        System.out.println(firstArrayOfNumbers.length);
+        System.out.println(secondArrayOfNumbers.length);
     }
 }

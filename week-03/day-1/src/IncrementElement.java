@@ -1,4 +1,4 @@
-public class IncementElement {
+public class IncrementElement {
     public static void main(String[] args){
         // - Create an array variable named `numbers`
         //   with the following content: `[1, 2, 3, 4, 5]`
