@@ -9,6 +9,23 @@ public class ColoredBox {
         // Draw a box that has different colored lines on each edge.
 
         graphics.setColor(Color.red);
+        graphics.drawLine(100, 100, 200, 100);
+        graphics.setColor(Color.yellow);
+        graphics.drawLine(100, 100, 100, 200);
+        graphics.setColor(Color.blue);
+        graphics.drawLine(100, 200, 200, 200);
+        graphics.setColor(Color.green);
+        graphics.drawLine(200, 200, 200, 100);
+        graphics.setColor(Color.pink);
+        graphics.drawLine(100, 100, 150, 50);
+        graphics.setColor(Color.black);
+        graphics.drawLine(200, 100, 250, 50);
+        graphics.setColor(Color.CYAN);
+        graphics.drawLine(150, 50, 250, 50);
+        graphics.setColor(Color.BLUE);
+        graphics.drawLine(200, 200, 250, 150);
+        graphics.setColor(Color.MAGENTA);
+        graphics.drawLine(250, 150, 250, 50);
 
 
     }

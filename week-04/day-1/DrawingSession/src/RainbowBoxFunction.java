@@ -4,36 +4,18 @@ import java.awt.*;
 
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
-public class Diagonals {
+public class RainbowBoxFunction {
     public static void mainDraw(Graphics graphics) {
-        // Draw the canvas' diagonals.
-        // If it starts from the upper-left corner it should be green, otherwise it should be red.
+        // Create a square drawing function that takes 3 parameters:
+        // The square size, the fill color, graphics
+        // and draws a square of that size and color to the center of the canvas.
+        // Create a loop that fills the canvas with rainbow colored squares (red, orange, yellow, green, blue, indigo, violet).
 
-        int firstX = 0;
-        int firstY = 0;
-        int secondX = 320;
-        int secondY = 320;
+        String[] colors = {"red", "orange", "yellow", "green", "blue", "indigo", "violet"};
+        int firstSize = WIDTH;
 
-        drawDiagonal( firstX , firstY , secondX, secondY , graphics );
-        drawDiagonal( 320 , 0 , 0, 320 , graphics);
 
     }
-
-    private static void drawDiagonal(int firstX, int firstY, int secondX, int secondY, Graphics graphics) {
-
-        Color mainColor = Color.green;
-        Color diagonalColor = Color.red;
-
-        graphics.drawLine(firstX, firstY, secondX, secondY);
-        if (firstX != 320 ) {
-            graphics.setColor(diagonalColor);
-        }
-        else {
-            graphics.setColor(mainColor);
-        }
-
-    }
-
 
     // Don't touch the code below
     static int WIDTH = 320;
