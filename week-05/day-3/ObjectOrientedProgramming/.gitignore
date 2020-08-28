@@ -9,4 +9,24 @@ Human.java
 Main.java
 Shirt.java
 Zoo.java
+videoGuideDogExample\entities\Dog.java
+videoGuideDogExample\entities\Shelter.java
+videoGuideDogExample\App.java
+useclass\Usable.java
+useclas\usableMain.java
+pokemon\Main.java
+pokemon\Pokemon.java
+PiratesCA\Armada.java
+PiratesCA\Captain.java
+PiratesCA\Pirate.java
+PiratesCA\PirateApp.java
+PiratesCA\Ship.java
+PiratesCA\WarApp.java
+mujTabor\Camp.java
+mujTabor\Sezona.java
+mujTabor\Visitor.java
+fleetofthings\Fleet.java
+fleetofthings\FleetOfThings.java
+fleetofthings\Thing.java
+counter\CounterTest.java
 
