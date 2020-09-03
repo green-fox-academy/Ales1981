@@ -19,7 +19,8 @@ public class SharpieSet {
         String mainDescription = "SharpieSet "+this.name+" has "+sharpies.size()+" sharpies.\n";
         String sharpieList = "";
         for ( Sharpie sharpie : sharpies ) {
-            sharpieList += " - "+sharpie.color+" sharpie has "+sharpie.inkAmount+" of ink.Writing costs you "+sharpie.width+" of ink."+"\n";
+            sharpieList += " - "+sharpie.color+" sharpie has "+sharpie.inkAmount+" of ink.Writing costs you "
+                    +sharpie.width+" of ink."+"\n";
         }
         return mainDescription+sharpieList;
     }
