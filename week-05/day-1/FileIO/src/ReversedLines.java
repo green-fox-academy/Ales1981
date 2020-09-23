@@ -4,27 +4,27 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Doubled {
+public class ReversedLines {
     public static void main(String[] args) {
-        // Create a method that decrypts the duplicated-chars.txt
-        Path file = Paths.get("duplicated-chars.txt");
-        Path targetFile = Paths.get("duplicated-chars-OK.txt");
-        decryptator(file,targetFile);
+        // Create a method that decrypts reversed-lines.txt
+        Path file = Paths.get("reversed-lines.txt");
+        Path fileReversed = Paths.get("reversed-lines-OK.txt");
+        deReverseFunction(file, fileReversed);
     }
 
-    private static void decryptator(Path file, Path targetFile) {
+    private static void deReverseFunction(Path file, Path fileReversed) {
         try {
             List<String> lines = Files.readAllLines(file);
-            List<String> lineToWrite = new ArrayList<>();
+            List<String> linesToWrite = new ArrayList<>();
             for (String line : lines) {
                 String toWrite = "";
                 char[] charsInLine = line.toCharArray();
-                for (int i = 0; i < charsInLine.length-1; i=i+2) {
+                for (int i = charsInLine.length - 1; i >= 0; i--) {
                     toWrite += charsInLine[i];
                 }
-                lineToWrite.add(toWrite);
+                linesToWrite.add(toWrite);
             }
-            Files.write(targetFile,lineToWrite);
+            Files.write(fileReversed, linesToWrite);
         } catch (java.io.IOException exception) {
             throw new RuntimeException("File does not exist!");
         }
