@@ -13,17 +13,22 @@ public class ReversedLines {
     }
 
     private static void deReverseFunction(Path file, Path fileReversed) {
+        List<String> lines;
         try {
-            List<String> lines = Files.readAllLines(file);
-            List<String> linesToWrite = new ArrayList<>();
-            for (String line : lines) {
-                String toWrite = "";
-                char[] charsInLine = line.toCharArray();
-                for (int i = charsInLine.length - 1; i >= 0; i--) {
-                    toWrite += charsInLine[i];
-                }
-                linesToWrite.add(toWrite);
+            lines = Files.readAllLines(file);
+        } catch (java.io.IOException exception) {
+            throw new RuntimeException("File does not exist!");
+        }
+        List<String> linesToWrite = new ArrayList<>();
+        for (String line : lines) {
+            String toWrite = "";
+            char[] charsInLine = line.toCharArray();
+            for (int i = charsInLine.length - 1; i >= 0; i--) {
+                toWrite += charsInLine[i];
             }
+            linesToWrite.add(toWrite);
+        }
+        try {
             Files.write(fileReversed, linesToWrite);
         } catch (java.io.IOException exception) {
             throw new RuntimeException("File does not exist!");

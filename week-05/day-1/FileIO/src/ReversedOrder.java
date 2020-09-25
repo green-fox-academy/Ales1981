@@ -14,14 +14,18 @@ public class ReversedOrder {
     }
 
     private static void revOrderFunc(Path file, Path fileRevOrder) {
+        List<String> lines;
         try {
-            List<String> lines = Files.readAllLines(file);
-            List<String> revOrder = new ArrayList<>();
-            for (int i = lines.size() - 1; i >= 0; i--) {
-                revOrder.add(lines.get(i));
-            }
+            lines = Files.readAllLines(file);
+        } catch (java.io.IOException exception) {
+            throw new RuntimeException("File does not exist!");
+        }
+        List<String> revOrder = new ArrayList<>();
+        for (int i = lines.size() - 1; i >= 0; i--) {
+            revOrder.add(lines.get(i));
+        }
+        try {
             Files.write(fileRevOrder, revOrder);
-
         } catch (java.io.IOException exception) {
             throw new RuntimeException("File does not exist!");
         }
