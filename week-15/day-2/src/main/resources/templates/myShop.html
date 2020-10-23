@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>My Web Shop</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{style.css}"/>
+    <meta charset="utf-8"/>
+</head>
+
+<header>
+    <h1>My Web Shop</h1>
+    <nav>
+        <button type="button" class="btn btn-danger"><a th:href="@{/only-available}">ONLY AVAILABLE</a></button>
+        <button type="button" class="btn btn-danger"><a th:href="@{/cheapest-first}">CHEAPEST FIRST</a></button>
+        <button type="button" class="btn btn-danger"><a th:href="@{/contains-nike}">CONTAINS NIKE</a></button>
+        <button type="button" class="btn btn-danger"><a th:href="@{/average-stock}">AVERAGE STOCK</a></button>
+        <button type="button" class="btn btn-danger">MOST EXPENSIVE AVAILABLE</button>
+        <button type="button" class="btn btn-danger"><a th:href="@{/showAllItems}">ALL ITEMS</a></button>
+    </nav>
+</header>
+
+<body>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Currency</th>
+        <th>Quantity of stock</th>
+    </tr>
+    <tr th:each="shopItem:${itemList}" th:object="${shopItem}">
+        <td th:text="*{name}"></td>
+        <td th:text="*{description}"></td>
+        <td th:text="*{price}"></td>
+        <td th:text="*{currency}"></td>
+        <td th:text="*{quantityOfStock}"></td>
+    </tr>
+    <tr th:each="shopItem:${availables}" th:object="${shopItem}">
+        <td th:text="*{name}"></td>
+        <td th:text="*{description}"></td>
+        <td th:text="*{price}"></td>
+        <td th:text="*{currency}"></td>
+        <td th:text="*{quantityOfStock}"></td>
+    </tr>
+    <tr th:each="shopItem:${cheapestFirstList}" th:object="${shopItem}">
+        <td th:text="*{name}"></td>
+        <td th:text="*{description}"></td>
+        <td th:text="*{price}"></td>
+        <td th:text="*{currency}"></td>
+        <td th:text="*{quantityOfStock}"></td>
+    </tr>
+    <tr th:each="shopItem:${nikeGoodsList}" th:object="${shopItem}">
+        <td th:text="*{name}"></td>
+        <td th:text="*{description}"></td>
+        <td th:text="*{price}"></td>
+        <td th:text="*{currency}"></td>
+        <td th:text="*{quantityOfStock}"></td>
+    </tr>
+
+</table>
+</body>
+</html>
