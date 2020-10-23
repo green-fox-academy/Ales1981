@@ -1,0 +1,44 @@
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+/src/main/java/com/greenfoxacademy/springstart/controllers/MainController.java
+/src/main/java/com/greenfoxacademy/springstart/controllers/RestController.java
+/src/main/java/com/greenfoxacademy/springstart/HelloWorld.java
+/src/main/java/com/greenfoxacademy/springstart/SpringstartApplication.java
+/src/main/resources/templates/Hello-world.html
+/src/main/resources/application.properties
+/build.gradle
+/gradlew
+/gradlew.bat
+/settings.gradle
