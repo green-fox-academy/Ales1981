@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Account details</title>
+    <link rel="stylesheet" th:href="@{style.css}"/>
+    <meta charset="utf-8"/>
+</head>
+
+<body>
+<div>
+    <div th:each="bankAccount : ${bankAccountList}">
+        <h1
+                th:text="'Name of the owner: '+${bankAccount.name}+ ' / actual balance : ' +${#numbers.formatDecimal(bankAccount.balance,1,2,'POINT')}+ ' Zebra / owners type : '+${bankAccount.animalType}"
+        ></h1>
+    </div>
+</div>
+</body>
+
+</html>

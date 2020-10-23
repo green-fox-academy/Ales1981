@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>allAccounts</title>
+    <link rel="stylesheet" type="text/css" th:href="@{style.css}" />
+    <meta charset="utf-8" />
+</head>
+
+<body>
+    <table>
+        <caption>-------------------</caption>
+        <caption>Bank of Simba users</caption>
+        <tr>
+            <th>Name</th>
+            <th>Is king</th>
+            <th>Balance</th>
+            <th>Animal type</th>
+            <th>Id</th>
+            <th>What type is he?</th>
+            <th>is goodGuy</th>
+            <th>Here is the button</th>
+        </tr>
+        <tr th:each="bankUser:${bankAccountList}" th:object="${bankUser}">
+            <td th:text="*{name}"></td>
+            <td>
+                <span th:if="*{isKing == true }" style="color: red">This is the KING!!!</span>
+                <span th:unless="*{isKing == true }">-</span>
+                <!--th:text="*{isKing} ? 'YES' : 'no'"-->
+            </td>
+            <td th:text="*{balance}"></td>
+            <td th:text="*{animalType}"></td>
+            <td th:text="*{accountId}"></td>
+            <td th:switch="*{isGoodGuy}">
+                <span th:case="true">He is a good guy :)</span>
+                <span th:case="false">He is a bad guy :(</span>
+            </td>
+            <td
+                th:text="*{isGoodGuy}">
+            ></td>
+            <td>
+                <form action="#" th:action="@{/rise}" th:object="${bankUser.balance}" method="post">
+                    <button type="submit">rise</button>
+                    <!--<label>balance</label>
+                    <input type="number" name="balance">-->
+                </form>
+            </td>
+        </tr>
+    </table>
+
+    <h2>Add new bank account</h2>
+    <form action="/add" method="post">
+        <label>Name</label>
+        <input type="text" name="name">
+        <label>Balance</label>
+        <input type="number" name="balance">
+        <label>Animal type</label>
+        <input type="text" name="animalType">
+        <label>is he King?</label>
+        <input type="text" name="isKing">
+        <label>is he good guy?</label>
+        <input type="text" name="isGoodGuy">
+        <button type="submit">Add bank account</button>
+    </form>
+
+
+    <form action="/rise" method="post">
+        <label>Name: </label>
+        <input type="text" name="name"><br>
+        <button type="submit">rise balance</button>
+    </form>
+
+    <table>
+        <caption>-------------------</caption>
+        <caption>Bank of Simba users</caption>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+        </tr>
+        <tr th:each="bankUser, iStat :${bankAccountList}"
+            th:style="${iStat.odd} ? 'font-weight : bold;'"
+            th:alt-title="${iStat.even}? 'even':'odd'">
+                <td th:text="${bankUser.accountId}"></td>
+                <td th:text="${bankUser.name}"></td>
+        </tr>
+    </table>
+</body>
+
+</html>
