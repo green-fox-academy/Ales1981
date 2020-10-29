@@ -3,36 +3,37 @@ package com.greenfoxacademy.springstart;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class Greeting {
-    private static AtomicLong greetCount = new AtomicLong(0);
-    //private long id;
+    private static AtomicLong id = new AtomicLong(0);
+    private long greetCount;
     private String content;
 
 
-    public Greeting(long id, String content) {
-        increment();
-        //this.id = id;
+    public Greeting(long greetCount , String content) {
+        this.greetCount = id.incrementAndGet();
         this.content = content;
     }
-/*
-    public long getId() {
+
+    public static AtomicLong getId() {
         return id;
     }
-*/
+
+    public static void setId(AtomicLong id) {
+        Greeting.id = id;
+    }
+
+    public long getGreetCount() {
+        return greetCount;
+    }
+
+    public void setGreetCount(long greetCount) {
+        this.greetCount = greetCount;
+    }
+
     public String getContent() {
         return content;
     }
 
-    public long getValue() {
-        return greetCount.get();
-    }
-
-    public void increment() {
-        while (true) {
-            long existingValue = getValue();
-            long newValue = existingValue + 1;
-            if (greetCount.compareAndSet(existingValue, newValue)) {
-                return;
-            }
-        }
+    public void setContent(String content) {
+        this.content = content;
     }
 }

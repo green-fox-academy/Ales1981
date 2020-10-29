@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Greet</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
 </head>
 <body>
-    <p1 th:text=" ${ Hello } +' '+ ${ userName } + ' ! This site was loaded ' + ${ clickCount } + ' times since last server start.'"></p1>
+    <p1 th:text=" ${ Hello } +' '+ ${ userName } + ' ! This site was loaded ' + ${ clickCount } + ' times since last server start.'"
+        th:style="|font-size:${fontSize}px;color:${textColor}|"></p1>
 </body>
 </html>
