@@ -77,4 +77,13 @@ public class BankAccount {
     public void setIsGoodGuy(boolean goodGuy) {
         isGoodGuy = goodGuy;
     }
+
+    public void increaseBalance(){
+        if (isKing){
+            balance +=100;
+        }else {
+            balance +=10;
+        }
+
+    }
 }

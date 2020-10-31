@@ -39,10 +39,9 @@
                 th:text="*{isGoodGuy}">
             ></td>
             <td>
-                <form action="#" th:action="@{/rise}" th:object="${bankUser.balance}" method="post">
+                <form action="#" th:action="@{/rise}" method="post">
+                    <input type="hidden" th:value="*{accountId}" name="accountId">
                     <button type="submit">rise</button>
-                    <!--<label>balance</label>
-                    <input type="number" name="balance">-->
                 </form>
             </td>
         </tr>
@@ -64,7 +63,7 @@
     </form>
 
 
-    <form action="/rise" method="post">
+    <form action="/rise2" method="post">
         <label>Name: </label>
         <input type="text" name="name"><br>
         <button type="submit">rise balance</button>

@@ -3,10 +3,7 @@ package com.greenfoxacademy.bankofsimba.controllers;
 import com.greenfoxacademy.bankofsimba.model.BankAccount;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +15,10 @@ public class BankController {
 
     public BankController() {
         bankAccountList.add(new BankAccount("Simba", 2000, "lion",true,true));
-        bankAccountList.add(new BankAccount("Robin Hood", -2000, "human",false,false));
-        bankAccountList.add(new BankAccount("Rambo", 0, "human",false,true));
+        bankAccountList.add(new BankAccount("Shrek", -2000, "orc",false,false));
+        bankAccountList.add(new BankAccount("Mickey", 100, "mouse",false,true));
         bankAccountList.add(new BankAccount("Donald", 1200, "duck",false,true));
-        bankAccountList.add(new BankAccount("Jaw", 1000, "shark",true,false));
+        bankAccountList.add(new BankAccount("White shark", 0, "shark",true,false));
 
     }
 
@@ -43,14 +40,25 @@ public class BankController {
     }
 
     @PostMapping("/rise")
-    public String riseBalance(@ModelAttribute(value = "balance") Model model){
+    public String riseBalance(@RequestParam(value = "accountId" ) int accountId ){
+        for ( BankAccount bankAccount : bankAccountList) {
+            if (bankAccount.getAccountId() == accountId )
+            bankAccount.increaseBalance();
+        }
+        return "redirect:/showAll";
+    }
 
+    @PostMapping("/rise2")
+    public String riseBalance2(@RequestParam(value = "name") String name){
+        for ( BankAccount bankAccount : bankAccountList) {
+            if (bankAccount.getName().equals(name)){
+                bankAccount.increaseBalance();
+            }
+        }
         return "redirect:/showAll";
     }
 
     @PostMapping("/add")
-    //public String addNewBankAccount(@ModelAttribute BankAccount bankAccount){
-    //    bankAccountList.add(new BankAccount());
     public String addUser(String name, int balance, String animalType, boolean isKing, boolean isGoodGuy){
         bankAccountList.add(new BankAccount(name,balance,animalType,isKing,isGoodGuy));
         return "redirect:/showAll";
