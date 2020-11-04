@@ -17,10 +17,17 @@
         <button type="button" class="btn btn-danger"><a th:href="@{/cheapest-first}">CHEAPEST FIRST</a></button>
         <button type="button" class="btn btn-danger"><a th:href="@{/contains-nike}">CONTAINS NIKE</a></button>
         <button type="button" class="btn btn-danger"><a th:href="@{/average-stock}">AVERAGE STOCK</a></button>
-        <button type="button" class="btn btn-danger">MOST EXPENSIVE AVAILABLE</button>
+        <button type="button" class="btn btn-danger"><a th:href="@{/mostExpensive}">MOST EXPENSIVE AVAILABLE</a></button>
         <button type="button" class="btn btn-danger"><a th:href="@{/showAllItems}">ALL ITEMS</a></button>
     </nav>
-    <h2>Shop average:<a th:text="${averageOnStock}"></a></h2>
+    <!--<h2 th:text="${message}"><a th:text="${averageOnStock}"></a></h2>
+    <h2 th:text="${message}"><a th:text="${maxPriceItem}"></a></h2>-->
+    <form action="/search" method="post">
+        <label>Search: </label><br>
+        <input type="text" placeholder="look for item" name="keyword">
+        <button type="submit">search</button>
+    </form>
+    <p th:text="${message}+${value}"></p>
 </header>
 
 <body>

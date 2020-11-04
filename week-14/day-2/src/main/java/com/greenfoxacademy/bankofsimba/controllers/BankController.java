@@ -63,6 +63,4 @@ public class BankController {
         bankAccountList.add(new BankAccount(name,balance,animalType,isKing,isGoodGuy));
         return "redirect:/showAll";
     }
-
-
 }

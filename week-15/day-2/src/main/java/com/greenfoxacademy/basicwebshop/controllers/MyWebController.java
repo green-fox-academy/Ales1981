@@ -4,10 +4,10 @@ import com.greenfoxacademy.basicwebshop.models.ShopItem;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -21,6 +21,7 @@ public class MyWebController {
         itemList.add(new ShopItem("Coca Cola", "0,5l standard coke", 25, "CZK", 0));
         itemList.add(new ShopItem("Wokin", "Chicken with fried rice and Wokin sauce.", 119, "CZK", 100));
         itemList.add(new ShopItem("T-shirt", "blue with corgi on bike.", 300, "CZK", 1));
+        itemList.add(new ShopItem("Sandals", "Very light shoes for every summer day walking.", 1100, "CZK", 12));
     }
 
     @GetMapping("/showWeb")
@@ -30,7 +31,7 @@ public class MyWebController {
 
     @GetMapping("/showAllItems")
     public String showAllItems(Model model) {
-        model.addAttribute("itemList", itemList);
+        model.addAttribute("list", itemList);
         return "myShop";
     }
 
@@ -38,7 +39,7 @@ public class MyWebController {
     public String showOnlyAvailable(Model model) {
         List<ShopItem> availables = itemList.stream().filter(shopItem -> shopItem.getQuantityOfStock() > 0)
                 .collect(Collectors.toList());
-        model.addAttribute("availables", availables);
+        model.addAttribute("list", availables);
         return "myShop";
     }
 
@@ -47,7 +48,7 @@ public class MyWebController {
         List<ShopItem> cheapestFirstList = itemList.stream()
                 .sorted(Comparator.comparingInt(ShopItem::getPrice))
                 .collect(Collectors.toList());
-        model.addAttribute("cheapestFirstList", cheapestFirstList);
+        model.addAttribute("list", cheapestFirstList);
         return "myShop";
     }
 
@@ -56,7 +57,7 @@ public class MyWebController {
         List<ShopItem> nikeGoodsList = itemList.stream()
                 .filter(shopItem -> shopItem.getDescription().contains("Nike"))
                 .collect(Collectors.toList());
-        model.addAttribute("nikeGoodsList", nikeGoodsList);
+        model.addAttribute("list", nikeGoodsList);
         return "myShop";
     }
 
@@ -64,7 +65,45 @@ public class MyWebController {
     public String showAverageStock(Model model) {
         double averageOnStock = itemList.stream()
                 .collect(Collectors.averagingDouble(ShopItem::getQuantityOfStock));
-        model.addAttribute("averageOnStock", averageOnStock);
+        model.addAttribute("message", "Average on stock : ");
+        model.addAttribute("value", averageOnStock);
         return "myShopAverage";
+    }
+
+    @GetMapping("/mostExpensive")
+    public String showMostExpensive(Model model) {
+        ShopItem maxPriceItem = itemList.stream()
+                .max(Comparator.comparingInt(ShopItem::getPrice))
+                .get();
+       /*List<ShopItem> mostExpensiveItems = itemList.stream()
+               .sorted(Comparator.comparingInt(ShopItem::getPrice).reversed())
+               .collect(Collectors.toList());
+       List<ShopItem> oneMaxValueList = new ArrayList<>();
+       oneMaxValueList.add(mostExpensiveItems.get(0));*/
+
+        model.addAttribute("message", "The most expensive item is : ");
+        model.addAttribute("value", maxPriceItem.getName());
+        return "myShopAverage";
+    }
+
+    @PostMapping("/search")
+    public String searchItem(@RequestParam(value = "keyword", required = false) String keyword,
+                             Model model) {
+        List<ShopItem> foundByName = itemList.stream()
+                .filter(shopItem -> shopItem.getName().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toList());
+        List<ShopItem> foundByDescription = itemList.stream()
+                .filter(shopItem -> shopItem.getDescription().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toList());
+        List<ShopItem> allResults = new ArrayList<>();
+        allResults.addAll(foundByName);
+        allResults.addAll(foundByDescription);
+        List<ShopItem> uniqueResults = allResults.stream().distinct().collect(Collectors.toList());
+        if (uniqueResults.isEmpty()){
+            model.addAttribute("noresult", "There is no such item in my shop!");
+        }else {
+            model.addAttribute("list", uniqueResults);
+        }
+        return "myShop";
     }
 }

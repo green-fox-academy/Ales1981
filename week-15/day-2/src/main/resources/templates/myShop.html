@@ -17,12 +17,13 @@
         <button type="button" class="btn btn-danger"><a th:href="@{/cheapest-first}">CHEAPEST FIRST</a></button>
         <button type="button" class="btn btn-danger"><a th:href="@{/contains-nike}">CONTAINS NIKE</a></button>
         <button type="button" class="btn btn-danger"><a th:href="@{/average-stock}">AVERAGE STOCK</a></button>
-        <button type="button" class="btn btn-danger">MOST EXPENSIVE AVAILABLE</button>
+        <button type="button" class="btn btn-danger"><a th:href="@{/mostExpensive}">MOST EXPENSIVE AVAILABLE</a></button>
         <button type="button" class="btn btn-danger"><a th:href="@{/showAllItems}">ALL ITEMS</a></button>
     </nav>
 </header>
 
 <body>
+
 <table>
     <tr>
         <th>Name</th>
@@ -31,35 +32,19 @@
         <th>Currency</th>
         <th>Quantity of stock</th>
     </tr>
-    <tr th:each="shopItem:${itemList}" th:object="${shopItem}">
+    <form action="/search" method="post">
+        <label>Search: </label>
+        <input type="text" placeholder="look for item" name="keyword">
+        <button type="submit">search</button>
+    </form>
+    <p th:text="${noresult}"></p>
+    <tr th:each="shopItem:${list}" th:object="${shopItem}">
         <td th:text="*{name}"></td>
         <td th:text="*{description}"></td>
         <td th:text="*{price}"></td>
         <td th:text="*{currency}"></td>
         <td th:text="*{quantityOfStock}"></td>
     </tr>
-    <tr th:each="shopItem:${availables}" th:object="${shopItem}">
-        <td th:text="*{name}"></td>
-        <td th:text="*{description}"></td>
-        <td th:text="*{price}"></td>
-        <td th:text="*{currency}"></td>
-        <td th:text="*{quantityOfStock}"></td>
-    </tr>
-    <tr th:each="shopItem:${cheapestFirstList}" th:object="${shopItem}">
-        <td th:text="*{name}"></td>
-        <td th:text="*{description}"></td>
-        <td th:text="*{price}"></td>
-        <td th:text="*{currency}"></td>
-        <td th:text="*{quantityOfStock}"></td>
-    </tr>
-    <tr th:each="shopItem:${nikeGoodsList}" th:object="${shopItem}">
-        <td th:text="*{name}"></td>
-        <td th:text="*{description}"></td>
-        <td th:text="*{price}"></td>
-        <td th:text="*{currency}"></td>
-        <td th:text="*{quantityOfStock}"></td>
-    </tr>
-
 </table>
 </body>
 </html>
