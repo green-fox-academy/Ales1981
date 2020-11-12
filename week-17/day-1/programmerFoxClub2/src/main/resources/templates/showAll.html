@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <title>Programmer Fox Club</title>
+    <link rel="stylesheet" type="text/css" th:href="@{showAll.css}" />
+    <meta charset="utf-8" />
+</head>
+
+<body>
+<header>
+    <div>
+        <h1>Welcome to Programmer Fox Club</h1>
+        <nav></nav>
+    </div>
+</header>
+
+<main>
+    <article>
+        <table>
+            <caption>All foxes</caption>
+            <tr>
+                <th>Name</th>
+                <th>Food</th>
+                <th>Drink</th>
+                <th>Id</th>
+            </tr>
+            <tr th:each="fox:${pack}" th:object="${fox}">
+                <td th:text="*{name}"></td>
+                <td th:text="*{food}"></td>
+                <td th:text="*{drink}"></td>
+                <td th:text="*{foxId}"></td>
+            </tr>
+        </table>
+
+    </article>
+</main>
+<footer>
+    <form th:action="@{/login}" method="get">
+        <p>Next step:</p>
+        <button type="submit">Return back to login page.</button>
+    </form>
+</footer>
+</body>
+
+</html>

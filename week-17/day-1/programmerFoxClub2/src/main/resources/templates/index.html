@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <title>Programmer Fox Club</title>
+    <link rel="stylesheet" type="text/css" th:href="@{style.css}"/>
+    <meta charset="utf-8"/>
+</head>
+
+<body>
+<header>
+    <div>
+        <h1>Programmer Fox Club</h1>
+        <nav></nav>
+    </div>
+</header>
+
+<main>
+    <article>
+        <ul>
+            <li><a th:href="@{/(name=${name})}">Information</a></li>
+            <li><a th:href="@{/nutritionStore(name=${name})}">Nutrition Store</a></li>
+        </ul>
+        <figure>
+            <figcaption>Wild green fox</figcaption>
+            <img src="images\greenfox.png" alt="nice little fox" height="200" width="200">
+        </figure>
+        <p th:text="'This is '+ ${name} +'. Currently living on '+ ${food} +' and '+ ${drink} +' . He knows 2 tricks.'"></p>
+        <h1>Known tricks</h1>
+        <ul>
+            <li>write HTML</li>
+            <li>code in Java</li>
+        </ul>
+        <br>
+        <form th:action="@{/showAll}" th:method="get">
+            <button type="submit">Observe the pack!</button>
+        </form>
+        <br>
+        <form th:action="@{/login}" th:method="get">
+            <button type="submit">Back to login page.</button>
+        </form>
+    </article>
+</main>
+<footer>
+    <p>the very end</p>
+</footer>
+</body>
+
+</html>
