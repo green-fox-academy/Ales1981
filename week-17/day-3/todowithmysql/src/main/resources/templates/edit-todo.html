@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -9,13 +9,11 @@
         <h1>Edit todo</h1><br>
         <h3>Todo description</h3>
             <input th:type="text" th:placeholder="${todo.title}" th:value="${todo.title}" th:name="title">
-        <h3>is done</h3>
-            <input th:type="radio" th:value="true" th:name="isDone" th:id="isDone">true</input>
-            <input th:type="radio" th:value="false" th:name="isDone" th:id="isDone">false</input>
-        <h3>is urgent</h3>
-            <input th:type="radio" th:value="true" th:name="isUrgent" th:id="isUrgent">true</input>
-            <input th:type="radio" th:value="false" th:name="isUrgent" th:id="isUrgent">false</input><br>
-            <button th:type="submit">Change</button>
+        <h3>is Urgent</h3>
+            <input th:type="checkbox" th:name="isUrgent" th:checked="${todo.isUrgent}" th:id="isUrgent">is Urgent<br />
+        <h3>is Done</h3>
+            <input th:type="checkbox" th:name="isDone" th:checked="${todo.isDone}">is Done<br />
+        <button th:type="submit">Change</button>
     </form><br>
     <form action="#" th:action="@{/todo/}" th:method="GET">
         <button th:type="submit">return</button>

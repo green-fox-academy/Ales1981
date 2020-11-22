@@ -2,13 +2,13 @@ package com.greenfoxacademy.todowithmysql.models;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
-@Entity
+@Entity(name = "Todo")
 @Getter
 @Setter
 public class Todo {
@@ -20,6 +20,15 @@ public class Todo {
     private String title;
     private boolean isUrgent;
     private boolean isDone;
+
+
+    @Column(name = "creation_date_time")
+    @CreationTimestamp
+    private LocalDateTime createDateTime;
+
+    @Column(name = "updated_date_time")
+    @UpdateTimestamp
+    private LocalDateTime updatedDateTime;
 
     public Todo() {
     }
