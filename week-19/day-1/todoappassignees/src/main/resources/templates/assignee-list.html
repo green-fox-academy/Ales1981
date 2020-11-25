@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All assignees</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/basic.css}"/>
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" rel="stylesheet">
+</head>
+<body>
+<h1>Assignees list</h1>
+<form action="#" th:action="@{/assignees/add}" th:method="GET">
+    <button th:type="submit">Add new assignee</button>
+</form>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+    </tr>
+    <tr th:each="assignee:${assignees}">
+        <td th:text="${assignee.assigneeId}"></td>
+        <td>
+            <a th:href="@{/assignees/showAssignee/{id}(id=${assignee.assigneeId})}" th:method="GET"
+               th:text="${assignee.getName()}"></a>
+        </td>
+        <td th:text="${assignee.email}"></td>
+        <td>
+            <a th:href="@{/assignees/remove/{id}(id=${assignee.assigneeId})}" th:method="DELETE">Remove assignee</a>
+        </td>
+        <td>
+            <a th:href="@{/assignees/editName/{id}(id=${assignee.assigneeId})}" th:method="GET">Edit name</a>
+        </td>
+    </tr>
+</table>
+<form action="#" th:action="@{/todo/}" th:method="GET">
+    <button th:type="submit">back to todos</button>
+</form>
+</body>
+</html>

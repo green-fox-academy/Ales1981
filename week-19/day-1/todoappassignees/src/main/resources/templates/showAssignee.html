@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Show single assignee</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/basic.css}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+<h1>Assignee overview :</h1>
+<table>
+    <tr>
+        <th>Assignee ID</th>
+        <th>Name</th>
+        <th>Email</th>
+    </tr>
+    <tr>
+        <td th:text="${assignee.assigneeId}"></td>
+        <td th:text="${assignee.name}"></td>
+        <td th:text="${assignee.email}"></td>
+    </tr>
+    <tr>
+        <th>assigned actions :</th>
+    </tr>
+    <tr th:each="todo : ${assignee.getTodoList()}">
+        <td th:text="${todo.getTitle()}"></td>
+    </tr>
+</table>
+<br>
+<form action="#" th:action="@{/todo/}" th:method="GET">
+    <button th:type="submit">back to todos</button>
+</form>
+<form action="#" th:action="@{/assignees/}" th:method="GET">
+    <button th:type="submit">back to assignees</button>
+</form>
+</body>
+</html>

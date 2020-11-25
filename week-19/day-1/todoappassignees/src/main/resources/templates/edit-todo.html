@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit todo</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/basic.css}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+<form action="#" th:action="@{/todo/edit/{id}(id=${todo.id})}" th:method="POST">
+    <h1>Edit todo</h1><br>
+    <h3>Todo description</h3>
+    <input th:type="text" th:placeholder="${todo.title}" th:value="${todo.title}" th:name="title">
+    <h3>is Urgent</h3>
+    <input th:type="checkbox" th:name="isUrgent" th:checked="${todo.isUrgent}" th:id="isUrgent"><br/>
+    <h3>is Done</h3>
+    <input th:type="checkbox" th:name="isDone" th:checked="${todo.isDone}"><br/>
+    <h3>Assignee's name</h3>
+    <select th:field="${todo.assignee.name}">
+        <option th:each="assignee : ${todo.assignee.name}"
+                th:value="${todo.assignee.name}"
+                th:text="${todo.assignee.name}"></option>
+    </select>
+    <button th:type="submit">Change</button>
+</form>
+<br>
+<form action="#" th:action="@{/todo/}" th:method="GET">
+    <button th:type="submit">return</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit assignee</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/basic.css}" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+    <h2>Current details are :</h2>
+<table>
+    <tr>
+        <th>Assignee's Id</th>
+        <th>Assignee's name</th>
+        <th>Assignee's email</th>
+    </tr>
+    <tr>
+        <td th:text="${assignee.assigneeId}">
+        <td th:text="${assignee.name}">
+        <td th:text="${assignee.email}">
+    </tr>
+</table>
+    <form action="#" th:action="@{/assignees/editName/{id}(id=${assignee.assigneeId})}" th:method="POST">
+        <h2>Edit assignee</h2>
+        <p>type new Assignee's name :</p>
+            <input th:type="text" th:placeholder="${assignee.name}" th:value="${assignee.name}" th:name="name">
+            <input th:type="text" th:placeholder="${assignee.email}" th:value="${assignee.email}" th:name="email">
+        <button th:type="submit">change name</button>
+    </form>
+    <br>
+    <form action="#" th:action="@{/assignees/}" th:method="GET">
+        <button th:type="submit">back to assignees</button>
+    </form><br>
+    <form action="#" th:action="@{/todo/}" th:method="GET">
+        <button th:type="submit">back to todos</button>
+    </form>
+</body>
+</html>
