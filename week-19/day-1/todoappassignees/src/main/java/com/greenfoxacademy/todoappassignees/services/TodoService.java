@@ -16,7 +16,7 @@ public interface TodoService {
 
     abstract Todo findTodoById(Long id);
 
-    abstract void updateTodo(Long id, String title, boolean isDone, boolean isUrgent, Date dueDate);
+    abstract void updateTodo(Long id, String title, boolean isDone, boolean isUrgent);
 
     abstract List<Todo> searchTodoByTitle(String keyword);
 

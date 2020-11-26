@@ -44,10 +44,9 @@ public class Todo {
         this.title = title;
     }
 
-    public Todo(String title, boolean isUrgent, boolean isDone , Date dueDate) {
+    public Todo(String title, boolean isUrgent, boolean isDone) {
         this.title = title;
         this.isUrgent = isUrgent;
         this.isDone = isDone;
-        this.dueDate = dueDate;
     }
 }

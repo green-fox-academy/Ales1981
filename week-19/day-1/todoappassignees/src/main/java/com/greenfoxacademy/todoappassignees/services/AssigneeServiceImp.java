@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class AssigneeServiceImp implements AssigneeService {
 
-    private AssigneeRepository assigneeRepository;
+    private final AssigneeRepository assigneeRepository;
 
     @Autowired
     public AssigneeServiceImp(AssigneeRepository assigneeRepository) {
@@ -41,7 +41,7 @@ public class AssigneeServiceImp implements AssigneeService {
     }
 
     @Override
-    public void updateAssignee(long assigneeId, String name, String email) {
+    public void updateAssignee(Long assigneeId, String name, String email) {
         Assignee assignee = new Assignee(name, email);
         assignee.setAssigneeId(assigneeId);
         this.assigneeRepository.save(assignee);

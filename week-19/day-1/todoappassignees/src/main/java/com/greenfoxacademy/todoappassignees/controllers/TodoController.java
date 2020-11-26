@@ -1,27 +1,29 @@
 package com.greenfoxacademy.todoappassignees.controllers;
 
 
+import com.greenfoxacademy.todoappassignees.services.AssigneeService;
 import com.greenfoxacademy.todoappassignees.services.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-
 @Controller
 @RequestMapping(value = "/todo")
 public class TodoController {
-    private TodoService todoService;
+    private final TodoService todoService;
+    private final AssigneeService assigneeService;
 
     @Autowired
-    public TodoController(TodoService todoService) {
+    public TodoController(TodoService todoService, AssigneeService assigneeService) {
         this.todoService = todoService;
+        this.assigneeService = assigneeService;
     }
 
     @GetMapping("/")
     public String getAllTodos(Model model) {
         model.addAttribute("todos", todoService.getAllTodos());
+//        model.addAttribute("assignees", assigneeService.getAllAssignees());
         return "todolist";
     }
 
@@ -52,12 +54,15 @@ public class TodoController {
     @GetMapping("/edit/{id}")
     public String editTodo(@PathVariable(value = "id") long id, Model model) {
         model.addAttribute("todo", todoService.findTodoById(id));
+        model.addAttribute("assignees", assigneeService.getAllAssignees());
         return "edit-todo";
     }
 
     @PostMapping("/edit/{id}")
-    public String updateTodo(@PathVariable(value = "id") long id, String title, boolean isUrgent, boolean isDone, Date dueDate) {
-        todoService.updateTodo(id, title, isUrgent, isDone, dueDate);
+    public String updateTodo(@PathVariable(value = "id") long id, String title, boolean isUrgent, boolean isDone,
+                             Long assigneeId, String name, String email) {
+        todoService.updateTodo(id, title, isUrgent, isDone);
+//        assigneeService.updateAssignee(assigneeId, name, email);
         return "redirect:/todo/";
     }
 
@@ -68,7 +73,7 @@ public class TodoController {
     }
 
     @PostMapping("/search")
-    public String searchTodoByTitle(@RequestParam ( value = "keyword") String keyword, Model model) {
+    public String searchTodoByTitle(@RequestParam(value = "keyword") String keyword, Model model) {
         model.addAttribute("todos", todoService.searchTodoByTitle(keyword));
         return "todolist";
     }

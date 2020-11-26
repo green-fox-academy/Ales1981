@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/assignees")
 public class AssigneeController {
-    private AssigneeService assigneeService;
+    private final AssigneeService assigneeService;
 
     @Autowired
     public AssigneeController(AssigneeService assigneeService) {

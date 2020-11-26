@@ -52,8 +52,8 @@ public class TodoServiceImp implements TodoService {
     }
 
     @Override
-    public void updateTodo(Long id, String title, boolean isDone, boolean isUrgent , Date dueDate) {
-        Todo todo = new Todo(title, isDone, isUrgent, dueDate);
+    public void updateTodo(Long id, String title, boolean isDone, boolean isUrgent) {
+        Todo todo = new Todo(title, isDone, isUrgent);
         todo.setId(id);
         this.todoRepository.save(todo);
     }

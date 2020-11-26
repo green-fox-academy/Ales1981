@@ -14,6 +14,6 @@ public interface AssigneeService {
 
     abstract Assignee findAssigneeById(Long assigneeId);
 
-    abstract void updateAssignee(long assigneeId, String name, String email);
+    abstract void updateAssignee(Long assigneeId, String name, String email);
 
 }

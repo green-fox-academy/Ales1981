@@ -17,10 +17,11 @@
     <h3>is Done</h3>
     <input th:type="checkbox" th:name="isDone" th:checked="${todo.isDone}"><br/>
     <h3>Assignee's name</h3>
-    <select th:field="${todo.assignee.name}">
-        <option th:each="assignee : ${todo.assignee.name}"
-                th:value="${todo.assignee.name}"
-                th:text="${todo.assignee.name}"></option>
+    <label>choose name</label>
+    <select th:field="${assignees}">
+        <option th:each="assignee : ${assignees}"
+                th:value="${assignee.name}"
+                th:text="${assignee.assigneeId +' / '+ assignee.name +' / '+ assignee.email}"></option>
     </select>
     <button th:type="submit">Change</button>
 </form>

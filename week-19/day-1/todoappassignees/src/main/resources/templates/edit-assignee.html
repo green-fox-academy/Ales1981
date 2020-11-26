@@ -24,7 +24,7 @@
         <h2>Edit assignee</h2>
         <p>type new Assignee's name :</p>
             <input th:type="text" th:placeholder="${assignee.name}" th:value="${assignee.name}" th:name="name">
-            <input th:type="text" th:placeholder="${assignee.email}" th:value="${assignee.email}" th:name="email">
+            <input th:type="hidden" th:placeholder="${assignee.email}" th:value="${assignee.email}" th:name="email">
         <button th:type="submit">change name</button>
     </form>
     <br>

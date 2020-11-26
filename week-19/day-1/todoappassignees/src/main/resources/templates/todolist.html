@@ -54,10 +54,10 @@
         <td>
             <a th:href="@{/todo/edit/{id}(id=${todo.id})}" th:method="GET">edit</a>
         </td>
-        <td th:text="${todo.assignee.assigneeId}"></td>
+        <td th:text="${todo.assignee.assigneeId} != null ? ${todo.assignee.assigneeId} : 0"></td>
         <td>
             <a th:href="@{/assignees/showAssignee/{id}(id=${todo.assignee.assigneeId})}" th:method="GET"
-               th:text="${todo.assignee.getName()}"></a>
+               th:text="${todo.assignee.name}"></a>
         </td>
     </tr>
 </table>
