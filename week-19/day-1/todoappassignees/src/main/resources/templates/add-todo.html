@@ -8,7 +8,9 @@
 <h1>Add new todo</h1>
 <form action="#" th:action="@{/todo/add}" th:method="POST">
     <label>todo</label>
-    <input type="text" placeholder="write new todo here" name="title">
+    <label>
+        <input type="text" placeholder="write new todo here" name="title">
+    </label>
     <button th:type="submit">Submit</button>
 </form>
 </body>
