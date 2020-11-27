@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All posts</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/basic.css}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+<a th:href="@{/create}" th:method="GET">Create new post</a>
+<h1>Trending posts</h1>
+<table>
+    <tr>
+        <th>score</th>
+        <th>up</th>
+        <th>down</th>
+        <th>title</th>
+    </tr>
+    <tr th:each="post : ${posts}">
+        <td th:text="${post.score}"></td>
+        <td>
+            <form action="#" th:action="@{/upScore/{id} (id=${post.postId})}" th:method="POST">
+                <button th:type="submit"> +</button>
+            </form>
+        </td>
+        <td>
+            <form action="#" th:action="@{/downScore/{id} (id=${post.postId})}" th:method="POST">
+                <button th:type="submit"> -</button>
+            </form>
+        </td>
+        <td>
+            <a th:href="@{/showPost/{id} (id=${post.postId})}" th:text="${post.title}"></a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

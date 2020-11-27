@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Single post</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/basic.css}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+<h1>Single post overview</h1>
+<table>
+    <tr>
+        <td>post Id</td>
+        <td>actual score</td>
+        <td>title</td>
+        <td>url</td>
+    </tr>
+    <tr>
+        <td th:text="${post.postId}"></td>
+        <td th:text="${post.score}"></td>
+        <td th:text="${post.title}"></td>
+        <td th:text="${post.url}"></td>
+    </tr>
+</table>
+<form action="#" th:action="@{/posts}" th:method="GET">
+    <button th:type="submit">return</button>
+</form>
+</body>
+</html>
