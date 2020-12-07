@@ -1,6 +1,7 @@
 package com.greenfoxacademy.todoappassignees.controllers;
 
 
+import com.greenfoxacademy.todoappassignees.models.Todo;
 import com.greenfoxacademy.todoappassignees.services.AssigneeService;
 import com.greenfoxacademy.todoappassignees.services.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,6 @@ public class TodoController {
     @GetMapping("/")
     public String getAllTodos(Model model) {
         model.addAttribute("todos", todoService.getAllTodos());
-//        model.addAttribute("assignees", assigneeService.getAllAssignees());
         return "todolist";
     }
 
@@ -59,10 +59,8 @@ public class TodoController {
     }
 
     @PostMapping("/edit/{id}")
-    public String updateTodo(@PathVariable(value = "id") long id, String title, boolean isUrgent, boolean isDone,
-                             Long assigneeId, String name, String email) {
-        todoService.updateTodo(id, title, isUrgent, isDone);
-//        assigneeService.updateAssignee(assigneeId, name, email);
+    public String updateTodo(@ModelAttribute(value = "updatedTodo") Todo updatedTodo, @PathVariable(value = "id") long id, boolean isUrgent, boolean isDone) {
+        todoService.updateTodo(id, updatedTodo, isUrgent, isDone);
         return "redirect:/todo/";
     }
 
@@ -73,8 +71,14 @@ public class TodoController {
     }
 
     @PostMapping("/search")
-    public String searchTodoByTitle(@RequestParam(value = "keyword") String keyword, Model model) {
-        model.addAttribute("todos", todoService.searchTodoByTitle(keyword));
+    public String searchTodoByTitle(@RequestParam(value = "title",required = false) String title, Model model) {
+        model.addAttribute("todos", todoService.searchTodoByTitle(title));
+        return "todolist";
+    }
+
+    @GetMapping("/searchByAssigneeName")
+    public String searchTodoByAssigneeName(@RequestParam(value = "assignee_name") String assignee_name, Model model){
+        model.addAttribute("todos",todoService.findAllByAssigneeName(assignee_name));
         return "todolist";
     }
 

@@ -16,10 +16,12 @@ public interface TodoService {
 
     abstract Todo findTodoById(Long id);
 
-    abstract void updateTodo(Long id, String title, boolean isDone, boolean isUrgent);
+    abstract void updateTodo(Long id, Todo updatedTodo,boolean isUrgent, boolean isDone);
 
-    abstract List<Todo> searchTodoByTitle(String keyword);
+    abstract List<Todo> searchTodoByTitle(String title);
 
     abstract List<Todo> findAllActiveTodos();
+
+    abstract List<Todo> findAllByAssigneeName(String assignee_name);
 
 }

@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>All todos</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Own CSS -->
     <link rel="stylesheet" type="text/css" th:href="@{/basic.css}"/>
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>All todos</title>
 </head>
 <body>
 <h1>Todos for today</h1>
@@ -16,14 +20,17 @@
     <button th:type="submit">Show active todos</button>
 </form>
 <br>
-
-<form th:action="@{/todo/search}" th:method="POST">
+<form th:action="@{/todo/search}" th:method="POST";>
     <label>Search by action : </label>
-    <input type="text" placeholder="write keyword here" name="keyword"/>
+    <input type="text" placeholder="write keyword here" name="title"/>
     <button th:type="submit">Search</button>
-
 </form>
 <br>
+<form th:action="@{/todo/searchByAssigneeName}" th:method="GET";>
+    <label>Search by name of assignee : </label>
+    <input type="text" placeholder="write name here" name="assignee_name"/>
+    <button th:type="submit">Search</button>
+</form>
 <table>
     <tr>
         <th>ID</th>
@@ -54,10 +61,13 @@
         <td>
             <a th:href="@{/todo/edit/{id}(id=${todo.id})}" th:method="GET">edit</a>
         </td>
-        <td th:text="${todo.assignee.assigneeId} != null ? ${todo.assignee.assigneeId} : 0"></td>
+        <td th:if="${todo.assignee} != null" th:text="${todo.assignee.assigneeId}"></td>
+        <td th:unless="${todo.assignee} != null">no id</td>
         <td>
-            <a th:href="@{/assignees/showAssignee/{id}(id=${todo.assignee.assigneeId})}" th:method="GET"
+            <a th:if="${todo.assignee} != null"
+               th:href="@{/assignees/showAssignee/{id}(id=${todo.assignee.assigneeId})}" th:method="GET"
                th:text="${todo.assignee.name}"></a>
+            <a th:unless="${todo.assignee} != null">no assignee chosen</a>
         </td>
     </tr>
 </table>
@@ -68,5 +78,17 @@
 <form action="#" th:action="@{/assignees/}" th:method="GET">
     <button th:type="submit">show all assignees</button>
 </form>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
 </body>
 </html>

@@ -1,39 +1,41 @@
 package com.greenfoxacademy.todoappassignees.services;
 
 import com.greenfoxacademy.todoappassignees.models.Todo;
+import com.greenfoxacademy.todoappassignees.repositories.AssigneeRepository;
 import com.greenfoxacademy.todoappassignees.repositories.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TodoServiceImp implements TodoService {
-    private TodoRepository todoRepository;
+    private final TodoRepository todoRepository;
+    private final AssigneeRepository assigneeRepository;
 
     @Autowired
-    public TodoServiceImp(TodoRepository todoRepository) {
+    public TodoServiceImp(TodoRepository todoRepository, AssigneeRepository assigneeRepository) {
         this.todoRepository = todoRepository;
+        this.assigneeRepository = assigneeRepository;
     }
 
     @Override
     public List<Todo> getAllTodos() {
-        List<Todo> todos = new ArrayList<>();
-        this.todoRepository.findAll().forEach(todos::add);
-        return todos;
+        return this.todoRepository.findAll().stream().collect(Collectors.toList());
+//        List<Todo> todos = new ArrayList<>();
+//        this.todoRepository.findAll().forEach(todos::add);
+//        return todos;
     }
 
     @Override
     public List<Todo> getAllActiveTodos() {
-        List<Todo> activeTodos = new ArrayList<>();
-        for ( Todo todo : this.todoRepository.findAll()) {
-            if (!todo.isDone()){
-                activeTodos.add(todo);
-            }
-        }
-        return activeTodos;
+        return this.todoRepository.findAll()
+                .stream()
+                .filter(todo -> !todo.isDone())
+                .collect(Collectors.toList());
+//        return this.todoRepository.findAllByIsDoneFalse();
     }
 
     @Override
@@ -52,20 +54,27 @@ public class TodoServiceImp implements TodoService {
     }
 
     @Override
-    public void updateTodo(Long id, String title, boolean isDone, boolean isUrgent) {
-        Todo todo = new Todo(title, isDone, isUrgent);
+    public void updateTodo(Long id, Todo updatedTodo, boolean isUrgent, boolean isDone) {
+        Todo todo = new Todo(updatedTodo.getTitle(), isUrgent, isDone);
         todo.setId(id);
+        todo.setAssignee(assigneeRepository.getOne(updatedTodo.getAssignee().getAssigneeId()));
+        todo.setCreateDateTime(todoRepository.findById(id).get().getCreateDateTime());
         this.todoRepository.save(todo);
     }
 
     @Override
-    public List<Todo> searchTodoByTitle(String keyword) {
-        return todoRepository.findAllByTitleContaining(keyword);
+    public List<Todo> searchTodoByTitle(String title) {
+        return todoRepository.findAllByTitleContaining(title);
     }
 
     @Override
     public List<Todo> findAllActiveTodos() {
         return this.todoRepository.findAllByIsDoneFalse();
+    }
+
+    @Override
+    public List<Todo> findAllByAssigneeName(String assignee_name) {
+        return this.todoRepository.findTodoByAssignee_NameLike(assignee_name);
     }
 }
 

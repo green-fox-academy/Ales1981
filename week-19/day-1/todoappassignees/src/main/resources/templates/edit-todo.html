@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
 <head>
+    <!-- Required meta tags -->
     <meta charset="UTF-8">
-    <title>Edit todo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Own CSS -->
     <link rel="stylesheet" type="text/css" th:href="@{/basic.css}"/>
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Edit todo</title>
 </head>
 <body>
 <form action="#" th:action="@{/todo/edit/{id}(id=${todo.id})}" th:method="POST">
@@ -13,14 +17,14 @@
     <h3>Todo description</h3>
     <input th:type="text" th:placeholder="${todo.title}" th:value="${todo.title}" th:name="title">
     <h3>is Urgent</h3>
-    <input th:type="checkbox" th:name="isUrgent" th:checked="${todo.isUrgent}" th:id="isUrgent"><br/>
+    <input th:type="checkbox" th:name="isUrgent" th:checked="${todo.isUrgent()}" th:id="isUrgent"><br/>
     <h3>is Done</h3>
-    <input th:type="checkbox" th:name="isDone" th:checked="${todo.isDone}"><br/>
+    <input th:type="checkbox" th:name="isDone" th:checked="${todo.isDone()}" th:id="isDone"><br/>
     <h3>Assignee's name</h3>
     <label>choose name</label>
-    <select th:field="${assignees}">
+    <select name="assignee">
         <option th:each="assignee : ${assignees}"
-                th:value="${assignee.name}"
+                th:value="${assignee.assigneeId}"
                 th:text="${assignee.assigneeId +' / '+ assignee.name +' / '+ assignee.email}"></option>
     </select>
     <button th:type="submit">Change</button>
@@ -29,5 +33,17 @@
 <form action="#" th:action="@{/todo/}" th:method="GET">
     <button th:type="submit">return</button>
 </form>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
 </body>
 </html>
