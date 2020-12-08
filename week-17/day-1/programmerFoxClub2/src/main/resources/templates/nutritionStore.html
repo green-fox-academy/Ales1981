@@ -19,32 +19,37 @@
     <article>
         <ul>
             <ul>
-                <li><a th:href="@{/(name=${name})}">Information</a></li>
-                <li><a th:href="@{/nutritionStore(name=${name})}">Nutrition Store</a></li>
+                <li><a th:href="@{/(name=${currentFox.getName()})}" th:method="GET">Information</a></li>
+                <li><a th:href="@{/nutritionStore(name=${currentFox.getName()})}" th:method="GET">Nutrition Store</a>
+                <li><a th:href="@{/trickCenter(name=${currentFox.getName()})}" th:method="GET">Trick center</a>
+                </li>
             </ul>
         </ul>
         <table>
-            <p th:text="'Current fox is '+${name}+' who eats '+${food}+ ' and drinks '+${drink}"></p>
+            <p th:object="${currentFox}"
+               th:text="'Current fox is '+*{name}+' who eats '+*{food}+ ' and drinks '+*{drink}"></p>
             <p>You can change it in menu below.</p>
-                <tr>
-                    <form th:action="@{/change(name=${name})}" th:method="POST">
-                        <label th:for="food">Food:</label>
-                        <input th:type="hidden" th:value="${food}" th:name="food">
-                            <select th:name="food" th:id="food">
-                                <option th:value="tomato">Tomato</option>
-                                <option th:value="duck">Duck</option>
-                                <option th:value="pizza">Pizza</option>
-                            </select>
-                        <label th:for="drink">Drink:</label>
-                        <input th:type="hidden" th:value="${drink}" th:name="drink">
-                            <select th:name="drink" th:id="drink">
-                                <option th:value="cola">Cola</option>
-                                <option th:value="limo">Limo</option>
-                                <option th:value="coffe">Coffe</option>
-                            </select>
-                        <button th:type="submit">Change</button>
-                    </form>
-                </tr>
+            <tr>
+                <form th:action="@{/nutritionStore(name=${currentFox.getName()})}" th:method="POST">
+                    <label th:for="foods">Food:</label>
+                    <select th:name="food" th:id="foods">
+                        <option th:each="food : ${foods}"
+                                th:value="${food}"
+                                th:text="${food}"
+                                th:selected="${food}==${currentFox.getFood()}">
+                        </option>
+                    </select>
+                    <label th:for="drinks">Drink :</label>
+                    <select th:name="drink" th:id="drinks">
+                        <option th:each="drink : ${drinks}"
+                                th:value="${drink}"
+                                th:text="${drink}"
+                                th:selected="${drink} == ${currentFox.getDrink()}">
+                        </option>
+                    </select>
+                    <button th:type="submit">Change</button>
+                </form>
+            </tr>
         </table>
     </article>
 </main>

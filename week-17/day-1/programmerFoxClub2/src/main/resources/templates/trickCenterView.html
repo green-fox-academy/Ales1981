@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <title>Programmer Fox Club</title>
+    <link rel="stylesheet" type="text/css" th:href="@{style.css}"/>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<ul>
+    <ul>
+        <li><a th:href="@{/(name=${currentFox.getName()})}" th:method="GET">Information</a></li>
+        <li><a th:href="@{/nutritionStore(name=${currentFox.getName()})}" th:method="GET">Nutrition Store</a>
+        <li><a th:href="@{/trickCenter(name=${currentFox.getName()})}" th:method="GET">Trick center</a>
+        </li>
+    </ul>
+</ul>
+<table>
+    <h1>Tricks :</h1>
+    <h4 th:text="'Current fox '+ ${currentFox.getName()}+' knows : '+${currentFox.knownTricks}"></h4>
+    <h4 th:if="${availableTricks.size() == 0}" th:text="'I can not teach you more,sorry!'"></h4>
+    <form th:unless="${availableTricks.size() == 0}" th:action="@{/trickCenter(name=${currentFox.getName()})}"
+          th:method="POST">
+        <p>To learn new trick, choose in the menu below:</p>
+        <label th:for="availableTricks">Tricks:</label>
+        <select th:name="trick" th:id="availableTricks">
+            <option th:each="trick : ${availableTricks}"
+                    th:value="${trick}"
+                    th:text="${trick}">
+            </option>
+        </select>
+        <button th:type="submit">Change</button>
+    </form>
+</table>
+</body>
+</html>

@@ -3,8 +3,8 @@
 
 <head>
     <title>Programmer Fox Club</title>
-    <link rel="stylesheet" type="text/css" th:href="@{style.css}" />
-    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{style.css}"/>
+    <meta charset="utf-8"/>
 </head>
 
 <body>
@@ -18,12 +18,13 @@
 <main>
     <article>
         <p>Please provide a name, so you can associate it to your pet!</p>
-        <form action="#" th:action="@{/login}" th:method="post">
+        <form th:action="@{/login}" th:method="POST">
             <label>Name</label>
-            <input type="text" placeholder="type name here" name="name">
+            <label>
+                <input type="text" placeholder="type name here" name="name">
+            </label>
             <button type="submit">GO</button>
         </form>
-
     </article>
 </main>
 <footer></footer>

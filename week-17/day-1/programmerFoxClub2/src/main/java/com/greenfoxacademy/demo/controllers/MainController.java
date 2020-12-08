@@ -10,51 +10,51 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class MainController {
 
-    private FoxServiceImpl foxService;
+    private final FoxServiceImpl foxService;
 
     public MainController(FoxServiceImpl foxService) {
         this.foxService = foxService;
     }
 
     @GetMapping("/default")
-    public String showDeafultFox(){
+    public String showDeafultFox() {
         return "default";
     }
 
     @GetMapping("/")
-    public String showFox(@RequestParam String name , Model model){
-        model.addAttribute("name", foxService.showCurrentFox(name).getName());
-        model.addAttribute("food", foxService.showCurrentFox(name).getFood());
-        model.addAttribute("drink", foxService.showCurrentFox(name).getDrink());
-        model.addAttribute("foxId", foxService.showCurrentFox(name).getFoxId());
+    public String showFox(@RequestParam String name, Model model) {
+        model.addAttribute("currentFox", foxService.showCurrentFox(name));
         return "index";
     }
 
     @GetMapping("/login")
-    public String showLoginPage(){
+    public String showLoginPage() {
         return "login";
     }
 
     @PostMapping("/login")
-    public String findFox(@RequestParam(value = "name") String name, Model model){
-        if (foxService.showCurrentFox(name) == null){
-            model.addAttribute("name", name);
-            return "createFox";
-        }else {
-            return "redirect:/?name="+name;
+    public String findFox(@RequestParam(value = "name") String name, Model model) {
+        if (!name.isEmpty()) {
+            if (foxService.showCurrentFox(name) == null) {
+                model.addAttribute("name", name);
+                return "createFox";
+            } else {
+                return "redirect:/?name=" + name;
+            }
         }
+        return "login";
     }
 
     @GetMapping("/showAll")
-    public String showAllFoxes(Model model){
-        model.addAttribute("pack",foxService.showAllFoxes());
+    public String showAllFoxes(Model model) {
+        model.addAttribute("pack", foxService.showAllFoxes());
         return "showAll";
     }
 
     @PostMapping("/addFox")
     public String createAndAddNewFox(@RequestParam(value = "name") String name,
                                      @RequestParam(value = "food") String food,
-                                     @RequestParam(value = "drink") String drink){
+                                     @RequestParam(value = "drink") String drink) {
         foxService.createAndAdd(name, food, drink);
         return "redirect:/showAll";
     }

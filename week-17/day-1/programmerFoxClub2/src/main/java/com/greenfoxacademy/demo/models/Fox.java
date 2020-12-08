@@ -10,17 +10,11 @@ public class Fox {
     private String drink;
     private static AtomicLong id = new AtomicLong(0);
     private long foxId;
+    private List<String> knownTricks = new ArrayList<>();
 
-    private List<Trick> listOfTricks;
 
     public Fox() {
     }
-
-//    public Fox(String name) {
-//        this.name = name;
-//        this.foxId = id.incrementAndGet();
-//    }
-
 
 
     public Fox(String name, String food, String drink) {
@@ -28,7 +22,7 @@ public class Fox {
         this.food = food;
         this.drink = drink;
         this.foxId = id.incrementAndGet();
-        this.listOfTricks = new ArrayList<>();
+        this.knownTricks = new ArrayList<>();
     }
 
     public String getName() {
@@ -63,7 +57,12 @@ public class Fox {
         this.foxId = foxId;
     }
 
-    public void addNewTrick(String nameOfTrick){
-        listOfTricks.add(new Trick(nameOfTrick));
+    public void learnNewTrick(String trick) {
+        knownTricks.add(trick);
     }
+
+    public List<String> getKnownTricks() {
+        return knownTricks;
+    }
+
 }
