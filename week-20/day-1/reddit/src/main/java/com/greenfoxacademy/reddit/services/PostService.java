@@ -15,4 +15,6 @@ public interface PostService {
     abstract void scoreUp(Long postId) throws Exception;
 
     abstract void scoreDown(Long postId) throws Exception;
+
+    abstract List<Post> findAllByHighestScore();
 }

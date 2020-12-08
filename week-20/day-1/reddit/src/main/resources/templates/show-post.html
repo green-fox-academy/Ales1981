@@ -15,12 +15,14 @@
         <td>actual score</td>
         <td>title</td>
         <td>url</td>
+        <td>date</td>
     </tr>
     <tr>
         <td th:text="${post.postId}"></td>
         <td th:text="${post.score}"></td>
         <td th:text="${post.title}"></td>
         <td th:text="${post.url}"></td>
+        <td th:text="${post.creationDate}"></td>
     </tr>
 </table>
 <form action="#" th:action="@{/posts}" th:method="GET">

@@ -16,6 +16,7 @@
         <th>up</th>
         <th>down</th>
         <th>title</th>
+        <th>date</th>
     </tr>
     <tr th:each="post : ${posts}">
         <td th:text="${post.score}"></td>
@@ -32,6 +33,7 @@
         <td>
             <a th:href="@{/showPost/{id} (id=${post.postId})}" th:text="${post.title}"></a>
         </td>
+        <td th:text="${post.creationDate}"></td>
     </tr>
 </table>
 </body>

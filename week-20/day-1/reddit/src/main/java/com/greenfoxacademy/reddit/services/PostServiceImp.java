@@ -58,4 +58,9 @@ public class PostServiceImp implements PostService {
             throw new Exception("Id not found");
         }
     }
+
+    @Override
+    public List<Post> findAllByHighestScore() {
+        return null;
+    }
 }
