@@ -35,3 +35,11 @@ out/
 
 ### VS Code ###
 .vscode/
+/src/main/java/com/greenfoxacademy/backedapi/controllers/HelloController.java
+/src/main/java/com/greenfoxacademy/backedapi/controllers/SecondMainController.java
+/src/main/java/com/greenfoxacademy/backedapi/controllers/TopicController.java
+/src/main/java/com/greenfoxacademy/backedapi/models/Topic.java
+/src/package.json
+/src/until4.json
+/src/until7.json
+

@@ -1,13 +1,13 @@
 package com.greenfoxacademy.backedapi.models;
 
-public class GreetError2 {
+public class GreetErrorTitle {
     private String error;
 
-    public GreetError2() {
+    public GreetErrorTitle() {
         this.error = "Please provide a title!";
     }
 
-    public GreetError2(String error) {
+    public GreetErrorTitle(String error) {
         this.error = error;
     }
 

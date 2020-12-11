@@ -9,51 +9,84 @@ import org.springframework.web.bind.annotation.*;
 public class MainController {
 
     @RequestMapping("/")
-    public String showIndex() {
+    public String renderIndex() {
         return "index";
     }
 
-    @ResponseBody
     @GetMapping("/doubling")
-    public ResponseEntity<?> doubleInput(@RequestParam(required = false) Integer input) {
+    public ResponseEntity<?> makeItDouble(@RequestParam(required = false) Integer input) {
         if (input == null) {
             DoubelingError error = new DoubelingError();
             return ResponseEntity.ok().body(error);
         }
+        Input num = new Input();
+        num.setReceived(input);
+        num.setResult(2 * input);
 
-        Input number = new Input();
-        number.setReceived(input);
-        number.setResult(2 * input);
-
-        return ResponseEntity.ok().body(number);
+        return ResponseEntity.ok().body(num);
     }
 
-    @ResponseBody
     @GetMapping("/greeter")
-    public ResponseEntity<?> makeGreet(@RequestParam(required = false) String name, @RequestParam(required = false) String title) {
+    public ResponseEntity<?> sayHello(@RequestParam(required = false) String name,
+                                      @RequestParam(required = false) String title) {
         if (name == null) {
-            GreetError error = new GreetError();
-            return ResponseEntity.badRequest().body(error);
+//            GreetErrorName errorName = new GreetErrorName();
+//            return ResponseEntity.badRequest().body(errorName);
+            GreetError errorBoth = new GreetError();
+            return ResponseEntity.badRequest().body(errorBoth);
         }
-
         if (title == null) {
-            GreetError2 error = new GreetError2();
-            return ResponseEntity.badRequest().body(error);
+            GreetErrorTitle errorTitle = new GreetErrorTitle();
+            return ResponseEntity.badRequest().body(errorTitle);
         }
-
-        Greet greet = new Greet(name, title);
-        return ResponseEntity.ok().body(greet);
-
+//        if ( title == null && name == null){
+//            GreetError errorBoth = new GreetError();
+//            return ResponseEntity.badRequest().body(errorBoth);
+//        }
+        Greet sayGreet = new Greet(name, title);
+        return ResponseEntity.ok().body(sayGreet);
     }
 
-    @ResponseBody
     @GetMapping("/appenda/{appendable}")
-    public ResponseEntity<?> appendA(@PathVariable(value = "appendable") String appendable) {
+    public ResponseEntity addTheA(@PathVariable(required = false) String appendable) {
         if (appendable == null) {
-            return ResponseEntity.status(404).build();
+            return (ResponseEntity) ResponseEntity.notFound();
         }
+        Appended name = new Appended(appendable);
+        return ResponseEntity.ok().body(name);
+    }
 
-        Appended word = new Appended(appendable);
-        return ResponseEntity.ok().body(word);
+    @PostMapping("/dountil/{action}")
+    public ResponseEntity<?> doSomeMath(@PathVariable(required = false) String action){
+//        String someJSON = "{\"dountil4\":\"4\"}";
+//        JSONPObject object = new JSONPObject(someJSON,4);
+//        Integer someNumber = object.getValue();
+//        String someJSONr2 = "{\"dountil7\":\"7\"}";
+        Integer someNumber = 7;
+        Integer someNumber2 = 4;
+        String sum = "sum";
+        String factor = "factor";
+        if (someNumber != null){
+            if (action.equals(sum)){
+                int sumResult = 0;
+                DoUntilResult doUntilResult = new DoUntilResult();
+                for (int i = someNumber; i > 0 ; i--) {
+                    sumResult += i;
+                }
+                doUntilResult.setResult(sumResult);
+                return ResponseEntity.ok().body(doUntilResult);
+            }
+            if (action.equals(factor)) {
+                int factorResult = 1;
+                DoUntilResult doUntilResult = new DoUntilResult();
+                for (int i = 1; i <= someNumber2; i++) {
+                    factorResult *= i;
+                }
+                doUntilResult.setResult(factorResult);
+                return ResponseEntity.ok().body(doUntilResult);
+            }
+        }
+        DoUntilError error = new DoUntilError();
+        return ResponseEntity.badRequest().body(error);
     }
 }
