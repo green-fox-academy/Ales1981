@@ -1,12 +1,26 @@
 package com.greenfoxacademy.backedapi.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.greenfoxacademy.backedapi.models.*;
+import com.greenfoxacademy.backedapi.services.ArrayHandlerService;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.IOException;
+
 @Controller
 public class MainController {
+
+    private final ArrayHandlerService arrayHandlerService;
+
+    @Autowired
+    public MainController(ArrayHandlerService arrayHandlerService) {
+        this.arrayHandlerService = arrayHandlerService;
+    }
 
     @RequestMapping("/")
     public String renderIndex() {
@@ -57,20 +71,20 @@ public class MainController {
     }
 
     @PostMapping("/dountil/{action}")
-    public ResponseEntity<?> doSomeMath(@PathVariable(required = false) String action){
-//        String someJSON = "{\"dountil4\":\"4\"}";
-//        JSONPObject object = new JSONPObject(someJSON,4);
-//        Integer someNumber = object.getValue();
-//        String someJSONr2 = "{\"dountil7\":\"7\"}";
-        Integer someNumber = 7;
-        Integer someNumber2 = 4;
+    public ResponseEntity<?> doSomeMath(@PathVariable(required = false) String action) {
+        String someJSON = "{\"dountil7\":\"7\"}";
+        JSONObject object1 = new JSONObject(someJSON);
+        Integer someNumber = object1.getInt("dountil7");
+        String someJSON2 = "{\"dountil4\":\"4\"}";
+        JSONObject object2 = new JSONObject(someJSON2);
+        Integer someNumber2 = object2.getInt("dountil4");
         String sum = "sum";
         String factor = "factor";
-        if (someNumber != null){
-            if (action.equals(sum)){
+        if (someNumber != null) {
+            if (action.equals(sum)) {
                 int sumResult = 0;
                 DoUntilResult doUntilResult = new DoUntilResult();
-                for (int i = someNumber; i > 0 ; i--) {
+                for (int i = someNumber; i > 0; i--) {
                     sumResult += i;
                 }
                 doUntilResult.setResult(sumResult);
@@ -88,5 +102,23 @@ public class MainController {
         }
         DoUntilError error = new DoUntilError();
         return ResponseEntity.badRequest().body(error);
+    }
+
+    @PostMapping("/arrays")
+    public ResponseEntity<?> doWithArray() throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayHandler arrayHandler;
+        try {
+            arrayHandler = mapper.readValue(new File("src/obj-empty-array.json"), ArrayHandler.class);
+        } catch (IOException e) {
+            throw new IOException();
+        }
+        if (arrayHandler.getWhat().isEmpty() || arrayHandler.getNumbers().length == 0) {
+            ArrayHandlerError error = new ArrayHandlerError();
+            return ResponseEntity.badRequest().body(error);
+        } else {
+            this.arrayHandlerService.doMath(arrayHandler);
+        }
+        return ResponseEntity.ok().body(arrayHandler);
     }
 }
