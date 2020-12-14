@@ -3,6 +3,7 @@ package com.greenfoxacademy.backedapi.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.greenfoxacademy.backedapi.models.*;
 import com.greenfoxacademy.backedapi.services.ArrayHandlerService;
+import com.greenfoxacademy.backedapi.services.LogEntryService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +17,12 @@ import java.io.IOException;
 public class MainController {
 
     private final ArrayHandlerService arrayHandlerService;
+    private final LogEntryService logEntryService;
 
     @Autowired
-    public MainController(ArrayHandlerService arrayHandlerService) {
+    public MainController(ArrayHandlerService arrayHandlerService, LogEntryService logEntryService) {
         this.arrayHandlerService = arrayHandlerService;
+        this.logEntryService = logEntryService;
     }
 
     @RequestMapping("/")
@@ -36,6 +39,7 @@ public class MainController {
         Input num = new Input();
         num.setReceived(input);
         num.setResult(2 * input);
+        this.logEntryService.createEntry("doubling","input="+input);
 
         return ResponseEntity.ok().body(num);
     }
@@ -58,6 +62,7 @@ public class MainController {
 //            return ResponseEntity.badRequest().body(errorBoth);
 //        }
         Greet sayGreet = new Greet(name, title);
+        this.logEntryService.createEntry("greeter","name="+name +", title="+title);
         return ResponseEntity.ok().body(sayGreet);
     }
 
@@ -67,6 +72,7 @@ public class MainController {
             return (ResponseEntity) ResponseEntity.notFound();
         }
         Appended name = new Appended(appendable);
+        this.logEntryService.createEntry("appenda","appendable= "+appendable);
         return ResponseEntity.ok().body(name);
     }
 
@@ -78,10 +84,8 @@ public class MainController {
         String someJSON2 = "{\"dountil4\":\"4\"}";
         JSONObject object2 = new JSONObject(someJSON2);
         Integer someNumber2 = object2.getInt("dountil4");
-        String sum = "sum";
-        String factor = "factor";
         if (someNumber != null) {
-            if (action.equals(sum)) {
+            if (action.equals("sum")) {
                 int sumResult = 0;
                 DoUntilResult doUntilResult = new DoUntilResult();
                 for (int i = someNumber; i > 0; i--) {
@@ -90,7 +94,7 @@ public class MainController {
                 doUntilResult.setResult(sumResult);
                 return ResponseEntity.ok().body(doUntilResult);
             }
-            if (action.equals(factor)) {
+            if (action.equals("factor")) {
                 int factorResult = 1;
                 DoUntilResult doUntilResult = new DoUntilResult();
                 for (int i = 1; i <= someNumber2; i++) {
@@ -121,4 +125,14 @@ public class MainController {
         }
         return ResponseEntity.ok().body(arrayHandler);
     }
+
+    @GetMapping("/log")
+    public ResponseEntity<?> allLogs(){
+        if (this.logEntryService.allEntries().isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+        LogEntryResult result = new LogEntryResult(this.logEntryService.allEntries(),this.logEntryService.countEntries());
+        return ResponseEntity.ok().body(result);
+    }
+
 }
