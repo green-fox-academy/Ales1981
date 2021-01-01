@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <title>Programmer Fox Club</title>
+    <link rel="stylesheet" type="text/css" th:href="@{style.css}"/>
+    <meta charset="utf-8"/>
+</head>
+
+<body>
+<header>
+    <div>
+        <h1>Programmer Fox Club</h1>
+        <nav></nav>
+    </div>
+</header>
+
+<main>
+    <article>
+        <ul>
+            <li><a th:href="@{/(name=${currentFox.getName()})}" th:method="GET">Information</a></li>
+            <li><a th:href="@{/nutritionStore(name=${currentFox.getName()})}" th:method="GET">Nutrition Store</a></li>
+            <li><a th:href="@{/trickCenter(name=${currentFox.getName()})}" th:method="GET">Trick center</a></li>
+        </ul>
+        <figure>
+            <figcaption>Wild green fox</figcaption>
+            <img src="images\greenfox.png" alt="nice little fox" height="200" width="200">
+        </figure>
+        <p th:object="${currentFox}" th:text="'This is '+ *{name} +'. Currently living on '+ *{food} +' and '+ *{drink}
+            +' . He knows '+ *{knownTricks.size()} +' tricks.'"></p>
+        <h1>Known tricks</h1>
+        <p th:if="${currentFox.knownTricks.size() == 0}" th:text="'You know no tricks yet. Go and learn some!'"></p>
+        <ul th:each="trick : ${currentFox.getKnownTricks()}">
+            <li th:text="*{trick}"></li>
+        </ul>
+        <br>
+        <form th:action="@{/showAll}" th:method="GET">
+            <button type="submit">Observe the pack!</button>
+        </form>
+        <br>
+        <form th:action="@{/login}" th:method="GET">
+            <button type="submit">Back to login page.</button>
+        </form>
+    </article>
+</main>
+<footer>
+    <p>the very end</p>
+</footer>
+</body>
+
+</html>

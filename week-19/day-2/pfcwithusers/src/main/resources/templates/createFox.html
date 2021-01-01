@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <title>Programmer Fox Club</title>
+    <link rel="stylesheet" type="text/css" th:href="@{showAll.css}"/>
+    <meta charset="utf-8"/>
+</head>
+
+<body>
+<header>
+    <div>
+        <h1>Programmer Fox Club</h1>
+        <nav></nav>
+    </div>
+</header>
+
+<main>
+    <article>
+        <p th:text="'Hello dear, '+${username}+', create your fox here.'">.</p><br>
+<!--        <p th:text="'Hello dear, '+${currentUser.getUsername()}+', create your fox here.'">.</p><br>-->
+<!--        <p>Do you want to change that?</p>-->
+        <p>Add a few details to the table below :</p>
+        <table>
+            <form th:action="@{/addFox/{username}(username=${currentUser.getUsername()})}" th:method="post">
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Food</th>
+                        <th>Drink</th>
+                        <th>Add new fox</th>
+                    </tr>
+                    <tr>
+                        <td><input th:type="text" placeholder="type name here" th:name="name"></td>
+                        <td><input th:type="text" placeholder="favorite food" th:name="food"></td>
+                        <td><input th:type="text" placeholder="favorite drink" th:name="drink"></td>
+                        <td>
+                            <button th:type="submit">Confirm</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </table>
+        <br>
+        <form th:action="@{/login}" method="get">
+            <p>Or you can</p>
+            <button th:type="submit">Return back to login page.</button>
+        </form>
+    </article>
+</main>
+<footer>
+    <p>the very end</p>
+</footer>
+</body>
+
+</html>

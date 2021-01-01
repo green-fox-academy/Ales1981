@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <title>Programmer Fox Club</title>
+    <link rel="stylesheet" type="text/css" th:href="@{style.css}"/>
+    <meta charset="utf-8"/>
+</head>
+
+<body>
+<header>
+    <div>
+        <h1>Welcome to Programmer Fox Club</h1>
+        <nav></nav>
+    </div>
+</header>
+
+<main>
+    <article>
+        <ul>
+            <ul>
+                <li><a th:href="@{/(name=${currentFox.getName()})}" th:method="GET">Information</a></li>
+                <li><a th:href="@{/nutritionStore(name=${currentFox.getName()})}" th:method="GET">Nutrition Store</a>
+                <li><a th:href="@{/trickCenter(name=${currentFox.getName()})}" th:method="GET">Trick center</a>
+                </li>
+            </ul>
+        </ul>
+        <table>
+            <p th:object="${currentFox}"
+               th:text="'Current fox is '+*{name}+' who eats '+*{food}+ ' and drinks '+*{drink}"></p>
+            <p>You can change it in menu below.</p>
+            <tr>
+                <form th:action="@{/nutritionStore(name=${currentFox.getName()})}" th:method="POST">
+                    <label th:for="foods">Food:</label>
+                    <select th:name="food" th:id="foods">
+                        <option th:each="food : ${foods}"
+                                th:value="${food}"
+                                th:text="${food}"
+                                th:selected="${food}==${currentFox.getFood()}">
+                        </option>
+                    </select>
+                    <label th:for="drinks">Drink :</label>
+                    <select th:name="drink" th:id="drinks">
+                        <option th:each="drink : ${drinks}"
+                                th:value="${drink}"
+                                th:text="${drink}"
+                                th:selected="${drink} == ${currentFox.getDrink()}">
+                        </option>
+                    </select>
+                    <button th:type="submit">Change</button>
+                </form>
+            </tr>
+        </table>
+    </article>
+</main>
+<footer></footer>
+</body>
+
+</html>
