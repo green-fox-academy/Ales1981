@@ -3,12 +3,9 @@ package com.greenfoxacademy.reddit.models;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
 
 @Table(name = "posts")
 @Entity(name = "post")
@@ -26,15 +23,22 @@ public class Post {
     @CreationTimestamp
     private LocalDate creationDate;
 
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User user;
+
     public Post() {
     }
 
-    public Post(String title, String url) {
+    public Post(String title, String url,User user) {
         this.title = title;
         this.url = url;
+        this.user = user;
         this.score = 10;
-        this.creationDate = getCreationDate();
+        this.creationDate = LocalDate.now();
     }
+
+
 
     public void scorePlusOne() {
         this.score++;

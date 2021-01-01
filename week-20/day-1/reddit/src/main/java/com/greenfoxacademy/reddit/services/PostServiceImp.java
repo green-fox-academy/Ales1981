@@ -1,6 +1,7 @@
 package com.greenfoxacademy.reddit.services;
 
 import com.greenfoxacademy.reddit.models.Post;
+import com.greenfoxacademy.reddit.models.User;
 import com.greenfoxacademy.reddit.repositories.PostRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,14 +18,12 @@ public class PostServiceImp implements PostService {
 
     @Override
     public List<Post> showAllPosts() {
-        List<Post> allPosts = new ArrayList<>();
-        postRepository.findAll().forEach(allPosts::add);
-        return allPosts;
+        return this.postRepository.findAll();
     }
 
     @Override
-    public void createPost(String title, String url) {
-        postRepository.save(new Post(title, url));
+    public void createPost(String title, String url, User user) {
+        postRepository.save(new Post(title, url,user));
     }
 
     @Override

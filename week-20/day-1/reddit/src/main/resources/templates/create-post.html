@@ -8,8 +8,9 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
+<p th:text="'User '+${user.name}+' is logged in'"></p>
 <h1>Create new post</h1>
-<form action="#" th:action="@{/create}" th:method="POST">
+<form action="#" th:action="@{/create-post/user={userId}(userId=${user.getUserId()})}" th:method="POST">
     <label>Description</label>
     <label>
         <input type="text" placeholder="write title here" name="title">
@@ -20,7 +21,7 @@
     </label>
     <button th:type="submit">confirm</button>
 </form>
-<form action="#" th:action="@{/posts}" th:method="GET">
+<form th:action="@{/posts/user={userId} (userId=${user.getUserId()})}" th:method="GET">
     <button th:type="submit">return</button>
 </form>
 </body>

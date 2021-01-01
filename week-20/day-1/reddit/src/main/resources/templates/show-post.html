@@ -8,6 +8,7 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
+<p th:text="'User '+${user.name}+' is logged in'"></p>
 <h1>Single post overview</h1>
 <table>
     <tr>
@@ -16,6 +17,7 @@
         <td>title</td>
         <td>url</td>
         <td>date</td>
+        <td>added by</td>
     </tr>
     <tr>
         <td th:text="${post.postId}"></td>
@@ -23,9 +25,10 @@
         <td th:text="${post.title}"></td>
         <td th:text="${post.url}"></td>
         <td th:text="${post.creationDate}"></td>
+        <td th:text="${post.user.name}"></td>
     </tr>
 </table>
-<form action="#" th:action="@{/posts}" th:method="GET">
+<form th:action="@{/posts/user={userId} (userId=${user.getUserId()})}" th:method="GET">
     <button th:type="submit">return</button>
 </form>
 </body>

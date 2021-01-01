@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    List<Post> findAllByScore(int score, Pageable pageable);
+//    List<Post> findAllByScore(int score, Pageable pageable);
 }
