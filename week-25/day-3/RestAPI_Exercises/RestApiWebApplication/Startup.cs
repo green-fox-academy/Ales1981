@@ -19,8 +19,8 @@ namespace RestApiWebApplication
         {
             services.AddControllers();
             services.AddMvc();
-            services.AddTransient<DoUntilService>();
-            services.AddTransient<ArrayHandlerService>();
+            services.AddSingleton<IDoUntil, DoUntilService>();
+            services.AddSingleton<IArrayHandlerService, ArrayHandlerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
