@@ -16,7 +16,7 @@ namespace WebApplicationOneToOne.Models
         public int TopSpeed { get; set; }
         public string Type { get; set; }
 
-        public Engine Engine { get; set }
+        public Engine Engine { get; set; }
 
         public Car()
         {

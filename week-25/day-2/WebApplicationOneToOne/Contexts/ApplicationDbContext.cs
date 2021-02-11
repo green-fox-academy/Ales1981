@@ -14,10 +14,9 @@ namespace WebApplicationOneToOne
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Car>()
-                        .HasOne<Engine>(c => c.Engine)
+                        .HasOne(c => c.Engine)
                         .WithOne(e => e.Car)
-                        .HasForeignKey<Engine>(e => e.CarEngineId);
+                        .HasForeignKey<Engine>(e => e.CarId);
         }
-
     }
 }

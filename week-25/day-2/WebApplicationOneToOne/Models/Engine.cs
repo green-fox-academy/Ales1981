@@ -15,7 +15,7 @@ namespace WebApplicationOneToOne.Models
         public int Valves { get; set; }
         public bool IsElectric { get; set; }
 
-        public long CarEngineId { get; set; }
+        public long CarId { get; set; }
         public Car Car { get; set; }
 
         public Engine()
